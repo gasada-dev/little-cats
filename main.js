@@ -1,4 +1,9 @@
-function getData(urls) {
+const urls = [ // Ссылки на API
+    "https://meowfacts.herokuapp.com/?count=10",
+    "https://api.thecatapi.com/v1/images/search?limit=10"
+];
+
+function getData(urls) { //получение ответов c API
     const requests = urls.map(url => {
 
     return fetch(url)
@@ -9,7 +14,6 @@ function getData(urls) {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             return data; // Возвращаем полученные данные
         })
         .catch(error => {
@@ -20,30 +24,18 @@ function getData(urls) {
     return Promise.all(requests);
 }
 
-
-
-
-const urls = [
-    "https://cat-fact.herokuapp.com/facts",
-    "https://api.thecatapi.com/v1/images/search?limit=10"
-];
-
-
 getData(urls)
-.then(data => {
+.then(data => { //создание карточек с котиками
     let dives = [];
-    for(let i = 0; i < data[0].length; i++) {
-        dives.push(createDiv(data[0][i].text, data[1][i].url));
+    for(let i = 0; i < data[1].length; i++) {
+        dives.push(createDiv(data[0].data[i], data[1][i].url));
     }
-    console.log(dives);
         document.querySelector('main').append(...dives);
     })
     
-  
-
-function createP(text) {
+function createP(text) { //создание html элемента
     let p = document.createElement('p');
-    p.classList.add('text')
+    p.classList.add('text');
     p.textContent = text;
     return p
 }
@@ -54,7 +46,6 @@ function createDiv(text, img){
     div.append(createP(text), createImg(img));
     return div;
 }
-
 
 function createImg(imgUrl){ 
    let img = document.createElement('img');
