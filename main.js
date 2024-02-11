@@ -1,5 +1,5 @@
 const urls = [ // Ссылки на API
-    "https://meowfacts.herokuapp.com/?count=10",
+    "https://meowfacts.herokuapp.com/?count=10&lang=rus",
     "https://api.thecatapi.com/v1/images/search?limit=10"
 ];
 
